@@ -28,7 +28,7 @@ export default function LoginForm() {
     <div className="flex items-center justify-center min-h-screen bg-[url('/image.jpg')] bg-cover bg-center">
       <Card className="mx-auto max-w-md bg-black bg-opacity-30 p-6 rounded-lg shadow-lg">
         <CardHeader className="text-center">
-          <h2 className={title({ color: "green" })}>Resume Parser</h2>
+          <h2 className={title({ color: "green" })}>Title</h2>
         </CardHeader>
         <CardBody>
           <form className="grid gap-4" onSubmit={handleLogin}>

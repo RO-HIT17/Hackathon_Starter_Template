@@ -34,7 +34,7 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/home">
             <Logo />
-            <p className="font-bold text-inherit">Resume Analyser</p>
+            <p className="font-bold text-inherit">App Name</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -65,12 +65,6 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-            <TwitterIcon />
-          </Link>
-          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-            <DiscordIcon />
-          </Link>
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
             <GithubIcon />
           </Link>

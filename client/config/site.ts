@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Resume Parser",
-  description: "Extract valuable insights from resumes with ease.",
+  name: "Starter Template",
+  description: "A starter template for Next.js created by code crusaeders",
   navItems: [
     {
       label: "Home",

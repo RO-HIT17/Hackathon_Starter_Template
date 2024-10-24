@@ -15,13 +15,13 @@ export function Home() {
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-xl text-center justify-center">
         <span className={title()}>Unlock the power of </span>
-        <span className={title({ color: "green" })}>Resume Parsing</span>
+        <span className={title({ color: "green" })}>Web app name</span>
         <br />
         <span className={title()}>
-          Extract valuable insights from resumes with ease.
+          txt text text ext
         </span>
         <div className={subtitle({ class: "mt-4" })}>
-          Fast, accurate, and customizable resume parsing for your application.
+          text text etxt text text text text text etxt text text text
         </div>
       </div>
 
@@ -32,7 +32,7 @@ export function Home() {
             radius: "full",
             variant: "shadow",
           })}
-          href="/resume"
+          href="/app_content"
         >
           Get Started
         </NextLink>
