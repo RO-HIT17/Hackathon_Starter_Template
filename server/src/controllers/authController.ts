@@ -4,16 +4,17 @@ import bcrypt from 'bcryptjs';
 import { generateToken } from '../utils/jwt';
 
 export const registerUser = async (req: Request, res: Response) => {
-  const { firstName,lastName, mobile, email, password, role } = req.body;
-  const existingUser: IUser | null = await UserModel.findOne({ email });
+  const { firstName,lastName,userName, mobile, email, password, role } = req.body;
+  const existingEmail: IUser | null = await UserModel.findOne({ email });
+  const existingUser: IUser | null = await UserModel.findOne({ userName });
 
-  if (existingUser) {
-    res.status(400).json({ msg: 'Email already exists' });
+  if (existingUser || existingEmail) {
+    res.status(400).json({ msg: 'User already exists' });
     return;
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new UserModel({ firstName,lastName, mobile, email, password: hashedPassword, role });
+  const user = new UserModel({ firstName,lastName,userName, mobile, email, password: hashedPassword, role });
 
   await user.save();
   const token = generateToken(user._id.toString(), user.role);
@@ -22,9 +23,9 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   try {
-    const { userId, firstName,lastName, mobile, email, password, role } = req.body;
+    const { userId, firstName,lastName,userName, mobile, email, password, role } = req.body;
     const user = await UserModel.findById(userId);
-
+   
     if (!user) {
       res.status(404).send('User not found');
       return;
@@ -49,6 +50,15 @@ export const updateUser = async (req: Request, res: Response) => {
       }
       user.email = email;
     }
+
+    if (userName) {
+        const existingUser: IUser | null = await UserModel.findOne({ userName });
+        if (existingUser && existingUser._id.toString() !== userId) {
+          res.status(400).send('User Name is already taken');
+          return;
+        }
+        user.userName = userName;
+      }
 
     if (password) {
       const salt = await bcrypt.genSalt(10);
