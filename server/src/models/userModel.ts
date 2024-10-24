@@ -14,6 +14,8 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: Role;
+  otp?: string;
+  otpExpiration?: number;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -24,6 +26,8 @@ const UserSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: Role, default: Role.USER, required: true },
+    otp: { type: String },
+    otpExpiration: { type: Number },
   }); 
 
 export const UserModel = model<IUser>('User', UserSchema);
