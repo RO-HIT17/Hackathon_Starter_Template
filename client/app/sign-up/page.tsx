@@ -1,7 +1,7 @@
 'use client';
 import Link from "next/link";
 import { useState } from 'react'; // Import useState from React
-import { Button, Input, Spacer } from "@nextui-org/react"; // Importing Button, Input, and Spacer from Next UI
+import { Button, Input, Spacer, Select, SelectItem } from "@nextui-org/react"; // Importing Button, Input, Spacer, Select, and SelectItem from Next UI
 import {
   Card,
   CardHeader,
@@ -16,33 +16,32 @@ export const description =
 
 export default function SignUpForm() {
   const [error, setError] = useState(''); // State for error messages
+  const [role, setRole] = useState('user'); // State for role
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    // Perform sign-up logic here
     const email = e.target.email.value;
     const password = e.target.password.value;
     const confirmPassword = e.target['confirm-password'].value;
 
-    // Check if passwords match
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
 
-    setError(''); // Clear error message if sign-up is successful
+    setError(''); // Clear error message if successful
     // Proceed with sign-up logic (e.g., API call)
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[url('/image.jpg')] bg-cover bg-center">
-      <Card className="mx-auto w-96 bg-black bg-opacity-0 p-4 rounded-lg shadow-lg"> {/* Adjusted width to w-96 */}
+      <Card className="mx-auto w-104 bg-black bg-opacity-0 p-4 rounded-lg shadow-lg">
         <CardHeader className="text-center">
           <h2 className={title({ color: "blue" })}>Web App</h2>
         </CardHeader>
         <CardBody>
           <form className="grid gap-2" onSubmit={handleSignUp}>
-            {error && <p className="text-red-500 text-sm">{error}</p>} {/* Display error message */}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
             <div className="grid grid-cols-2 gap-2">
               <Input
                 id="first-name"
@@ -51,9 +50,7 @@ export default function SignUpForm() {
                 variant="bordered"
                 fullWidth
                 clearable
-                bordered
                 required
-                animated
                 className="bg-transparent"
               />
               <Input
@@ -63,60 +60,57 @@ export default function SignUpForm() {
                 variant="bordered"
                 fullWidth
                 clearable
-                bordered
                 required
-                animated
                 className="bg-transparent"
               />
             </div>
-            <Input
-              id="username"
-              type="text"
-              label="Username"
-              variant="bordered"
-              fullWidth
-              clearable
-              bordered
-              required
-              animated
-              className="bg-transparent"
-            />
-            <Input
-              id="email"
-              type="email"
-              label="Email"
-              variant="bordered"
-              fullWidth
-              clearable
-              bordered
-              required
-              animated
-              className="bg-transparent"
-            />
-            <Input
-              id="phone-number"
-              type="tel"
-              label="Phone Number"
-              variant="bordered"
-              fullWidth
-              clearable
-              bordered
-              required
-              animated
-              className="bg-transparent"
-            />
-            <Input
-              id="role"
-              type="text"
-              label="Role"
-              variant="bordered"
-              fullWidth
-              clearable
-              bordered
-              required
-              animated
-              className="bg-transparent"
-            />
+            <div className="grid grid-cols-2 gap-2">
+              <Input
+                id="username"
+                type="text"
+                label="Username"
+                variant="bordered"
+                fullWidth
+                clearable
+                required
+                className="bg-transparent"
+              />
+              <Select
+                id="role"
+                label="Role"
+                variant="bordered"
+                fullWidth
+                required
+                className="bg-transparent"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              >
+                <SelectItem key="user" value="user">User</SelectItem>
+                <SelectItem key="admin" value="admin">Admin</SelectItem>
+              </Select>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Input
+                id="email"
+                type="email"
+                label="Email"
+                variant="bordered"
+                fullWidth
+                clearable
+                required
+                className="bg-transparent"
+              />
+              <Input
+                id="phone-number"
+                type="tel"
+                label="Phone Number"
+                variant="bordered"
+                fullWidth
+                clearable
+                required
+                className="bg-transparent"
+              />
+            </div>
             <Input
               id="password"
               type="password"
@@ -124,9 +118,7 @@ export default function SignUpForm() {
               variant="bordered"
               fullWidth
               clearable
-              bordered
               required
-              animated
               className="bg-transparent"
             />
             <Input
@@ -136,9 +128,7 @@ export default function SignUpForm() {
               variant="bordered"
               fullWidth
               clearable
-              bordered
               required
-              animated
               className="bg-transparent"
             />
             <Button 
