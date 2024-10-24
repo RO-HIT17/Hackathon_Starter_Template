@@ -90,3 +90,38 @@ export const loginUser = async (req: Request, res: Response) => {
     const id = user._id;
     res.status(200).json({ success: true, token, id });
   };
+
+
+  export const getUser = async (req: Request, res: Response) => {
+    try {
+      const { userId } = req.params;
+      const user = await UserModel.findById(userId);
+  
+      if (!user) {
+        res.status(404).send('User not found');
+        return;
+      }
+  
+      res.status(200).json({ success: true, data: user });
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      res.status(500).send('Server error');
+    }
+  };
+  
+  export const deleteUser = async (req: Request, res: Response) => {
+    try {
+      const { userId } = req.params;
+      const user = await UserModel.findByIdAndDelete(userId);
+  
+      if (!user) {
+        res.status(404).send('User not found');
+        return;
+      }
+  
+      res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).send('Server error');
+    }
+  };
