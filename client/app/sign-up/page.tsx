@@ -1,5 +1,6 @@
 'use client';
 import Link from "next/link";
+import { useState } from 'react'; // Import useState from React
 import { Button, Input, Spacer } from "@nextui-org/react"; // Importing Button, Input, and Spacer from Next UI
 import {
   Card,
@@ -15,6 +16,25 @@ export const description =
   "A sign-up form with first name, last name, email, password, and confirm password. There's an option to sign up with Google and GitHub.";
 
 export default function SignUpForm() {
+  const [error, setError] = useState(''); // State for error messages
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    // Perform sign-up logic here
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const confirmPassword = e.target['confirm-password'].value;
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    setError(''); // Clear error message if sign-up is successful
+    // Proceed with sign-up logic (e.g., API call)
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-[url('/image.jpg')] bg-cover bg-center">
       <Card className="mx-auto max-w-md bg-black bg-opacity-0 p-6 rounded-lg shadow-lg">
@@ -22,7 +42,8 @@ export default function SignUpForm() {
           <h2 className={title({ color: "green" })}>Resume Parser</h2>
         </CardHeader>
         <CardBody>
-          <form className="grid gap-4">
+          <form className="grid gap-4" onSubmit={handleSignUp}>
+            {error && <p className="text-red-500 text-sm">{error}</p>} {/* Display error message */}
             <div className="grid grid-cols-2 gap-3">
               <Input
                 id="first-name"
