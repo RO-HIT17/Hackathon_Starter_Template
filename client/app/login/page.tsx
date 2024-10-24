@@ -46,7 +46,7 @@ export default function LoginForm() {
     <div className="flex items-center justify-center min-h-screen bg-[url('/image.jpg')] bg-cover bg-center">
       <Card className="mx-auto w-96 bg-black bg-opacity-30 p-6 rounded-lg shadow-lg">
         <CardHeader className="text-center">
-          <h2 className={title({ color: "green" })}>Web App</h2>
+          <h2 className={title({ color: "blue" })}>Web App</h2>
         </CardHeader>
         <CardBody>
           <form className="grid gap-4" onSubmit={handleLogin}>
@@ -79,7 +79,7 @@ export default function LoginForm() {
                 className="bg-transparent"
               />
               <Link href="/forgot-password" legacyBehavior>
-                <a className="text-green-300 text-sm mt-1">Forgot Password?</a>
+                <a className="text-blue-300 text-sm mt-1">Forgot Password?</a>
               </Link>
             </div>
             <Button 
@@ -110,7 +110,7 @@ export default function LoginForm() {
           <p className="text-gray-400">
             Don't have an account?{" "}
             <Link href="/sign-up" legacyBehavior>
-              <a className="text-green-300">Sign up</a>
+              <a className="text-blue-300">Sign up</a>
             </Link>
           </p>
         </CardFooter>

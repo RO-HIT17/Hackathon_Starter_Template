@@ -9,7 +9,6 @@ import {
   CardFooter,
 } from "@nextui-org/card"; // Importing Card components from Next UI
 import { FaGoogle } from "react-icons/fa"; // Importing Google icon from react-icons
-import { GithubIcon } from "@/components/icons"; // Importing GithubIcon from the correct path
 import { title } from "@/components/primitives";
 
 export const description =
@@ -37,14 +36,14 @@ export default function SignUpForm() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[url('/image.jpg')] bg-cover bg-center">
-      <Card className="mx-auto max-w-md bg-black bg-opacity-0 p-6 rounded-lg shadow-lg">
+      <Card className="mx-auto w-96 bg-black bg-opacity-0 p-4 rounded-lg shadow-lg"> {/* Adjusted width to w-96 */}
         <CardHeader className="text-center">
-          <h2 className={title({ color: "green" })}>Resume Parser</h2>
+          <h2 className={title({ color: "blue" })}>Web App</h2>
         </CardHeader>
         <CardBody>
-          <form className="grid gap-4" onSubmit={handleSignUp}>
+          <form className="grid gap-2" onSubmit={handleSignUp}>
             {error && <p className="text-red-500 text-sm">{error}</p>} {/* Display error message */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2">
               <Input
                 id="first-name"
                 type="text"
@@ -71,9 +70,45 @@ export default function SignUpForm() {
               />
             </div>
             <Input
+              id="username"
+              type="text"
+              label="Username"
+              variant="bordered"
+              fullWidth
+              clearable
+              bordered
+              required
+              animated
+              className="bg-transparent"
+            />
+            <Input
               id="email"
               type="email"
               label="Email"
+              variant="bordered"
+              fullWidth
+              clearable
+              bordered
+              required
+              animated
+              className="bg-transparent"
+            />
+            <Input
+              id="phone-number"
+              type="tel"
+              label="Phone Number"
+              variant="bordered"
+              fullWidth
+              clearable
+              bordered
+              required
+              animated
+              className="bg-transparent"
+            />
+            <Input
+              id="role"
+              type="text"
+              label="Role"
               variant="bordered"
               fullWidth
               clearable
@@ -108,26 +143,17 @@ export default function SignUpForm() {
             />
             <Button 
               type="submit" 
-              className="mt-3 border border-white-500" 
+              className="mt-2 border border-white-500" 
               color="gradient" 
               auto
             >
               Sign Up
             </Button>
-            <div className="flex items-center my-3">
+            <div className="flex items-center my-2">
               <hr className="flex-grow border-t border-gray-500" />
               <span className="mx-2 text-gray-400">OR</span>
               <hr className="flex-grow border-t border-gray-500" />
             </div>
-            <Button
-              type="button"
-              className="mt-2 border border-white-500 flex items-center justify-center"
-              color="gradient"
-              auto
-            >
-              <GithubIcon className="mr-2" />
-              Sign Up with GitHub
-            </Button>
             <Button
               type="button"
               className="mt-2 border border-white-500 flex items-center justify-center"
@@ -143,7 +169,7 @@ export default function SignUpForm() {
           <p className="text-gray-400">
             Already have an account?{" "}
             <Link href="/login" legacyBehavior>
-              <a className="text-green-300">Login</a>
+              <a className="text-blue-300">Login</a>
             </Link>
           </p>
         </CardFooter>
