@@ -3,7 +3,9 @@ import { title } from "@/components/primitives";
 import React, { useState } from 'react';
 import { Input } from "@nextui-org/input";
 import { Spacer } from "@nextui-org/spacer";
-import { Button } from "@nextui-org/button";
+import { Switch } from "@nextui-org/switch";
+import { Button, ButtonGroup } from "@nextui-org/button";
+import { Card } from "@nextui-org/card";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@nextui-org/table";
 import { useRouter } from 'next/navigation';
@@ -17,12 +19,12 @@ export default function Settings() {
   const [username, setUsername] = useState<string>('abc');
   const [password, setPassword] = useState<string | number>('1');
   const [phone, setPhone] = useState<string | number>('9384799275');
-  const [profile, setProfile] = useState<File | null>(null); 
+  const [profile, setProfile] = useState<File | null>(null);
   const router = useRouter();
 
   const handleSave = () => {
     alert("Settings saved successfully!");
-    
+    // Handle backend operations to update database
   };
 
   const handleSignOut = () => {
@@ -30,16 +32,14 @@ export default function Settings() {
     router.push('/login');
   };
 
-  const handleImageUpload = (file: File | null) => {
+  const handleImageUpload = (file: File) => {
     setProfile(file);
   };
 
-  const validateEmail = (email: string) =>
-    email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
+  const validateEmail = (email: string) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
   const isInvalid = React.useMemo(() => {
     if (email === "") return false;
-
     return validateEmail(email) ? false : true;
   }, [email]);
 
@@ -57,7 +57,7 @@ export default function Settings() {
             <TableBody>
               <TableRow key="1">
                 <TableCell>PROFILE PICTURE :</TableCell>
-                <TableCell>{profile?.name || "No profile picture uploaded"}</TableCell>
+                <TableCell>{profile ? profile.name : 'No image uploaded'}</TableCell>
               </TableRow>
               <TableRow key="2">
                 <TableCell>FIRST NAME :</TableCell>
@@ -90,13 +90,12 @@ export default function Settings() {
             </TableBody>
           </Table>
         </Tab>
-
         <Tab key="changesettings" title="Change Settings">
           <Input
             label="Profile Picture"
             type="file"
             accept="image/*"
-            onChange={(e) => handleImageUpload(e.target.files ? e.target.files[0] : null)}
+            onChange={(e) => e.target.files && handleImageUpload(e.target.files[0])}
             className="max-w-xs"
           />
           <Spacer y={2} />
@@ -111,7 +110,6 @@ export default function Settings() {
             onValueChange={setEmail}
           />
           <Spacer y={2} />
-
           <Input
             label="Password"
             type="password"
@@ -141,29 +139,26 @@ export default function Settings() {
             fullWidth
           />
           <Spacer y={2} />
-
           <Input
             clearable
             label="Username"
-            type="username"
+            type="text"
             variant="bordered"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             fullWidth
           />
           <Spacer y={2} />
-
           <Input
             clearable
             label="Role"
-            type="role"
+            type="text"
             variant="bordered"
             value={role}
             onChange={(e) => setRole(e.target.value)}
             fullWidth
           />
           <Spacer y={2} />
-
           <Input
             clearable
             label="Phone"
@@ -174,9 +169,7 @@ export default function Settings() {
             fullWidth
           />
           <Spacer y={2} />
-
           <Button onClick={handleSave}>Save Settings</Button>
-
           <Spacer y={16} />
           <Button radius="full" color="danger" onClick={handleSignOut}>
             Sign Out
@@ -190,4 +183,3 @@ export default function Settings() {
     </div>
   );
 }
-
