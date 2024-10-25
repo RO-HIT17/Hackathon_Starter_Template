@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -12,7 +13,7 @@ import { Link } from "@nextui-org/link";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
-
+import withAuth from "@/app/hoc/withAuth";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
@@ -23,7 +24,8 @@ import {
 } from "@/components/icons";
 import { User } from "@nextui-org/user";
 
-export const Navbar = () => {
+
+const Navbar = () => {
   return (
     <NextUINavbar
       maxWidth="full"
@@ -109,3 +111,5 @@ export const Navbar = () => {
     </NextUINavbar>
   );
 };
+
+export default withAuth(Navbar);
