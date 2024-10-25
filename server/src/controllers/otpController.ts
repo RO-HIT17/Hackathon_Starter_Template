@@ -3,6 +3,7 @@ import { UserModel } from '../models/userModel';
 import transporter from '../config/nodeMailer';
 import { generateOTP, generateOTPExpiration  } from '../utils/otp';
 import { verifyOTP } from '../utils/otp';
+import bcrypt from 'bcryptjs';
 
 export const sendOTP = async (req: Request, res: Response): Promise<void> => {
   const { email } = req.body;
@@ -71,6 +72,31 @@ export const verifyOTPController = async (req: Request, res: Response): Promise<
       res.status(200).json({ message: 'OTP verified successfully' });
     } catch (error) {
       console.error('Error in verifyOTPController:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
+
+  export const resetPassword = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { email , newPassword } = req.body;
+      
+      const user = await UserModel.findOne({ email });
+  
+      if (!user) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+  
+      
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      
+      
+      user.password = hashedPassword;
+      await user.save();
+  
+      res.status(200).json({ message: 'Password reset successfully' });
+    } catch (error) {
+      console.error('Error in resetPassword:', error);
       res.status(500).json({ message: 'Server error' });
     }
   };
