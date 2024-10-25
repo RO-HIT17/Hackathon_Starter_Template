@@ -15,32 +15,51 @@ import { title } from "@/components/primitives";
 export const description =
   "A login form with email and password. There's an option to login with Google and a link to sign up if you don't have an account.";
 
-export default function LoginForm() {
-  const router = useRouter();
-  const [error, setError] = useState(''); // State for error messages
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Perform login logic here
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-
-    // Email format validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('Please enter a valid email address');
-      return;
-    }
-
-    // Dummy validation logic
-    if (email !== 'user@example.com' || password !== 'password') {
-      setError('Invalid email or password');
-      return;
-    }
-
-    setError(''); // Clear error message if login is successful
-    router.push('/home');
-  };
+  export default function LoginForm() {
+    const router = useRouter();
+    const [error, setError] = useState<string>(''); // State for error messages
+  
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      
+      const email = e.currentTarget.email.value;
+      const password = e.currentTarget.password.value;
+  
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        setError('Please enter a valid email address');
+        return;
+      }
+  
+      // Simulate login request to backend
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          setError(errorData.message || 'Login failed');
+          return;
+        }
+  
+        const data = await response.json();
+  
+        // Store authentication token
+        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('id', data.id);
+        
+        // Redirect to protected route
+        router.push('/home');
+      } catch (error) {
+        setError('An error occurred during login');
+      }
+    };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[url('/image.jpg')] bg-cover bg-center">
