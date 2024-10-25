@@ -24,8 +24,7 @@ export default function HomeLayout({
 }) {
   //const { loading, authenticated } = useAuthCheck();
 
-  //if (loading) return <div>Loading...</div>; // Display loading indicator while checking authentication
-
+  //if (loading) return <div>Loading...</div>; 
   return (
     <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
       <div className="relative flex flex-col h-screen">
