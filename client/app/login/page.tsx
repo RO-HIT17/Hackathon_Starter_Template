@@ -8,8 +8,8 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-} from "@nextui-org/card"; // Importing Card components from Next UI
-import { FaGoogle, FaLinkedin } from "react-icons/fa"; // Importing Google and LinkedIn icons from react-icons
+} from "@nextui-org/card"; 
+import { FaGoogle, FaLinkedin } from "react-icons/fa"; 
 import { title } from "@/components/primitives";
 
 export const description =
@@ -17,7 +17,7 @@ export const description =
 
   export default function LoginForm() {
     const router = useRouter();
-    const [error, setError] = useState<string>(''); // State for error messages
+    const [error, setError] = useState<string>(''); 
   
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -32,7 +32,6 @@ export const description =
         return;
       }
   
-      // Simulate login request to backend
       try {
         const response = await fetch('http://localhost:5000/api/auth/login', {
           method: 'POST',
@@ -50,11 +49,9 @@ export const description =
   
         const data = await response.json();
   
-        // Store authentication token
         localStorage.setItem('authToken', data.token);
         localStorage.setItem('id', data.id);
         
-        // Redirect to protected route
         router.push('/home');
       } catch (error) {
         setError('An error occurred during login');
@@ -69,7 +66,7 @@ export const description =
         </CardHeader>
         <CardBody>
           <form className="grid gap-4" onSubmit={handleLogin}>
-            {error && <p className="text-red-500 text-sm">{error}</p>} {/* Display error message */}
+            {error && <p className="text-red-500 text-sm">{error}</p>} 
             <div className="grid gap-3">
               <Input
                 id="email"

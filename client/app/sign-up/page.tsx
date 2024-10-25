@@ -1,21 +1,20 @@
 'use client';
 
 import Link from "next/link";
-import { useState, FormEvent } from 'react'; // Import FormEvent for typing form submission
-import { Button, Input, Spacer, Select, SelectItem } from "@nextui-org/react"; // Importing Button, Input, Spacer, Select, and SelectItem from Next UI
+import { useState, FormEvent } from 'react'; 
+import { Button, Input, Spacer, Select, SelectItem } from "@nextui-org/react";
 import {
   Card,
   CardHeader,
   CardBody,
   CardFooter,
-} from "@nextui-org/card"; // Importing Card components from Next UI
-import { FaGoogle } from "react-icons/fa"; // Importing Google icon from react-icons
-import { title } from "@/components/primitives"; // Assuming title is a styled component or utility function
-
+} from "@nextui-org/card"; 
+import { FaGoogle } from "react-icons/fa"; 
+import { title } from "@/components/primitives";
 export const description =
   "A sign-up form with first name, last name, email, password, and confirm password. There's an option to sign up with Google and GitHub.";
 
-// Define types for form data
+
 interface SignUpFormData {
   firstName: string;
   lastName: string;
@@ -28,8 +27,8 @@ interface SignUpFormData {
 }
 
 const SignUpPage: React.FC = () => {
-  const [error, setError] = useState<string>(''); // State for error messages
-  const [role, setRole] = useState<string>('user'); // State for role
+  const [error, setError] = useState<string>(''); 
+  const [role, setRole] = useState<string>('user');
   const [formData, setFormData] = useState<SignUpFormData>({
     firstName: '',
     lastName: '',
@@ -39,7 +38,7 @@ const SignUpPage: React.FC = () => {
     password: '',
     confirmPassword: '',
     role: 'user',
-  }); // State for form data
+  }); 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
