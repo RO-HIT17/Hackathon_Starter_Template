@@ -22,8 +22,7 @@ export default function Settings() {
 
   const handleSave = () => {
     alert("Settings saved successfully!");
-    // handle backend logic
-    // update database
+    
   };
 
   const handleSignOut = () => {
